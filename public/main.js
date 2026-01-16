@@ -1,6 +1,7 @@
 const monInput = document.getElementById('monInput');
 const monBouton = document.getElementById('monBouton');
-const monBouton_2 = document.getElementById("monBouton_2")
+const monBouton_2 = document.getElementById("monBouton_2");
+const monBouton_3 = document.getElementById("monBouton_3");
 
 monBouton.addEventListener('click', () => {
     fetch('/register', {
@@ -14,6 +15,7 @@ monBouton.addEventListener('click', () => {
             alert(data);
         });
 });
+
 monBouton_2.addEventListener('click', () => {
     fetch('info').then(
         response => response.json()
