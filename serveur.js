@@ -30,7 +30,7 @@ app.get('/login', (req, res) => {
 
 
 app.get('/info', (req, res) => {
-  res.json({ cle1: 'valeur1', cle2: 'valeur2' });
+  res.json({ cle1: 'valeur1', cle2: 'valeur2'});
 });
 
 
