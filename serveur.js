@@ -81,3 +81,14 @@ app.listen(3000, () => {
   let monIp = require("ip").address();
   console.log(`Server running on http://${monIp}:3000`);
 });
+/*
+app.get('/participants', (req, res) => {
+  connection.query('SELECT * FROM Vote', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des utilisateurs :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    res.json(results);
+  });
+});*/

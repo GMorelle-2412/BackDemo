@@ -83,3 +83,15 @@ monBouton_2.addEventListener('click', () => {
                 });
     }
 });
+/*
+const listeParticipants = document.getElementById("participants");
+
+listeParticipants.addEventListener('click', () => {
+    fetch('/participants')
+        .then(responsebrute => responsebrute.json()) 
+        .then(
+            responsejson => {
+                document.getElementById('reponse').innerHTML = responsejson.cle1; 
+            });
+        
+});*/
