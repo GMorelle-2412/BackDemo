@@ -3,6 +3,7 @@ const monBouton = document.getElementById('monBouton');
 const Password = document.getElementById('Password');
 const monBouton_2 = document.getElementById("monBouton_2");
 const monBouton_3 = document.getElementById("monBouton_3");
+const monBoutonvote = document.getElementById("Vote");
 
 var i = 1;
 
@@ -19,6 +20,24 @@ monBouton.addEventListener('click', () => {
             alert(data);
         });
     i++;
+});
+
+monBoutonvote.addEventListener('click', () => {
+    const usersList = document.getElementById('usersList');
+    const selectedUserId = usersList.value;   
+    alert('Utilisateur : ' + selectedUserId+ ' à voter');
+
+    fetch('/votes', {
+        
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idValue: selectedUserId})
+    }).then(response => response.text())
+        .then(data => {
+            alert(data);
+        });
 });
 
 window.onload = () => {
@@ -43,15 +62,6 @@ userSelectedButton.addEventListener('click', () => {
     const selectedUserId = usersList.value;     
     alert('Utilisateur sélectionné ID : ' + selectedUserId);
 });
-
-const userSelectedButton_2 = document.getElementById('userSelectedButton_2');
-
-userSelectedButton_2.addEventListener('click', () => {
-    const usersList = document.getElementById('usersList');
-    const selectedUserId = usersList.value;     
-    alert('Utilisateur : ' + selectedUserId+ ' à voter');
-});
-
 
 monBouton_2.addEventListener('click', () => {
     if (i == 1) {
