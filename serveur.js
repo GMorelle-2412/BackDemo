@@ -33,7 +33,16 @@ app.get('/info', (req, res) => {
   res.json({ cle1: 'valeur1', cle2: 'valeur2'});
 });
 
-
+app.get('/users', (req, res) => {
+  connection.query('SELECT * FROM User', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des utilisateurs :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    res.json(results);
+  });
+});
 
 app.post('/register', (req, res) => {
 
@@ -52,7 +61,16 @@ app.post('/register', (req, res) => {
   );
 });
 
-
+/*app.get('/votes', (req, res) => {
+  connection.query('SELECT * FROM Vote', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des utilisateurs :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    res.json(results);
+  });
+});*/
 
 app.listen(3000, () => {
   let monIp = require("ip").address();

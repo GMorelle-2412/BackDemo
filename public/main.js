@@ -6,6 +6,7 @@ const monBouton_3 = document.getElementById("monBouton_3");
 
 var i = 1;
 
+
 monBouton.addEventListener('click', () => {
     fetch('/register', {
         method: 'POST',
@@ -19,6 +20,38 @@ monBouton.addEventListener('click', () => {
         });
     i++;
 });
+
+window.onload = () => {
+    fetch('/users')
+    .then(response => response.json())
+    .then(users => {
+        const usersList = document.getElementById('usersList');
+        users.forEach(user => {
+            //création d'un input select option avec id en value et login en texte  
+            const option = document.createElement('option');
+            option.value = user.id;
+            option.text = user.Login;
+            usersList.appendChild(option);  
+        });
+    });
+}
+
+const userSelectedButton = document.getElementById('userSelectedButton');
+
+userSelectedButton.addEventListener('click', () => {
+    const usersList = document.getElementById('usersList');
+    const selectedUserId = usersList.value;     
+    alert('Utilisateur sélectionné ID : ' + selectedUserId);
+});
+
+const userSelectedButton_2 = document.getElementById('userSelectedButton_2');
+
+userSelectedButton_2.addEventListener('click', () => {
+    const usersList = document.getElementById('usersList');
+    const selectedUserId = usersList.value;     
+    alert('Utilisateur : ' + selectedUserId+ ' à voter');
+});
+
 
 monBouton_2.addEventListener('click', () => {
     if (i == 1) {
