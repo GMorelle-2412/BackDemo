@@ -7,6 +7,7 @@ const monBoutonvote = document.getElementById("Vote");
 
 var i = 1;
 
+
 monBouton.addEventListener('click', () => {
     fetch('/register', {
         method: 'POST',
@@ -82,15 +83,23 @@ monBouton_2.addEventListener('click', () => {
                 });
     }
 });
-/*
-const listeParticipants = document.getElementById("participants");
 
-listeParticipants.addEventListener('click', () => {
-    fetch('/participants')
-        .then(responsebrute => responsebrute.json()) 
-        .then(
-            responsejson => {
-                document.getElementById('reponse').innerHTML = responsejson.cle1; 
-            });
-        
-});*/
+const loginButton = document.getElementById('loginButton');
+loginButton.addEventListener('click', () => {
+    const loginInput = document.getElementById('loginInput').value;
+    const passwordInput = document.getElementById('passwordInput').value;
+
+    fetch('/connexion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ login: loginInput, password: passwordInput })
+    }).then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            alert('ID utilisateur : ' + data.user.id);
+            localStorage.setItem('userId', data.user.id);
+           
+        });
+});
