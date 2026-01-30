@@ -1,0 +1,12 @@
+objectif : 
+savoir qui a voter pour qui.
+
+prérequi :
+- seul le id connecter peut voter.
+- le mettre dans un tableau qui sera présent sur la page web.
+    (Tableau : vote, user et electeur).
+
+comment faire :
+- Dans la table (BDD) "vote" il faut ajouter idElecteur
+- Ajouter Tableau
+- céer les relations entre serveur.js et main.js
