@@ -7,7 +7,6 @@ const monBoutonvote = document.getElementById("Vote");
 
 var i = 1;
 
-
 monBouton.addEventListener('click', () => {
     fetch('/register', {
         method: 'POST',

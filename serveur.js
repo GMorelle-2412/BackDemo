@@ -30,7 +30,7 @@ app.get('/login', (req, res) => {
 
 
 app.get('/info', (req, res) => {
-  res.json({ cle1: 'valeur1', cle2: 'valeur2'});
+  res.json({ cle1: 'valeur1', cle2: 'valeur2' });
 });
 
 app.get('/users', (req, res) => {
@@ -44,11 +44,31 @@ app.get('/users', (req, res) => {
   });
 });
 
+app.post('/connexion', (req, res) => {
+  console.log(req.body);
+  //on récupère le login et le password
+  const { login, password } = req.body;
+  connection.query('SELECT * FROM User WHERE login = ? AND password = ?', [login, password], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la vérification des identifiants :', err);
+      res.status(500).json({ message: 'Erreur serveur' });
+      return;
+    }
+    if (results.length === 0) {
+      res.status(401).json({ message: 'Identifiants invalides' });
+      return;
+    }
+    // Identifiants valides 
+    res.json({ message: 'Connexion réussie !' });
+  });
+});
+
+
 app.post('/register', (req, res) => {
 
   connection.query(
     'INSERT INTO User (login, Password) VALUES (?, ?)',
-    [req.body.loginValue,req.body.passwordValue],
+    [req.body.loginValue, req.body.passwordValue],
     (err, results) => {
       if (err) {
         console.error('Erreur lors de l\'insertion dans la base de données :', err);
