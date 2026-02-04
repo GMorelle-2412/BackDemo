@@ -1,12 +1,11 @@
 const monInput = document.getElementById('monInput');
 const monBouton = document.getElementById('monBouton');
 const Password = document.getElementById('Password');
-const monBouton_2 = document.getElementById("monBouton_2");
+const connection = document.getElementById("monBouton_2");
 const monBouton_3 = document.getElementById("monBouton_3");
 const monBoutonvote = document.getElementById("Vote");
 
 var i = 1;
-
 
 monBouton.addEventListener('click', () => {
     fetch('/register', {
@@ -26,6 +25,13 @@ monBoutonvote.addEventListener('click', () => {
     const usersList = document.getElementById('usersList');
     const selectedUserId = usersList.value;   
     alert('Utilisateur : ' + selectedUserId+ ' à voter');
+
+
+    //récupérer aussi id du connecté dans le local storage
+    //localstorage.getItem("idConnecte")
+    //modifier la route votes pour qu'elle accept une deuxieme variable
+    //on envoi selectedUserId et localstorage.getItem("idConnecte")
+
 
     fetch('/votes', {
         
@@ -63,43 +69,33 @@ userSelectedButton.addEventListener('click', () => {
     alert('Utilisateur sélectionné ID : ' + selectedUserId);
 });
 
-monBouton_2.addEventListener('click', () => {
-    if (i == 1) {
-
-        fetch('/info')
-            .then(responsebrute => responsebrute.json()) 
-            .then(
-                responsejson => {
-                    document.getElementById('reponse').innerHTML = responsejson.cle1; 
-                });
-
-    }
-    else {
-        fetch('/info')
-            .then(responsebrute => responsebrute.json())
-            .then(
-                responsejson => {
-                    document.getElementById('reponse').innerHTML = responsejson.cle2;
-                });
-    }
-});
-
-const loginButton = document.getElementById('loginButton');
-loginButton.addEventListener('click', () => {
-    const loginInput = document.getElementById('loginInput').value;
-    const passwordInput = document.getElementById('passwordInput').value;
+connection.addEventListener('click', () => {
+    const login = document.getElementById('login').value;
+    const password = document.getElementById('Password').value;
 
     fetch('/connexion', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ login: loginInput, password: passwordInput })
+        body: JSON.stringify({ login: login, password: password})
     }).then(response => response.json())
         .then(data => {
             alert(data.message);
             alert('ID utilisateur : ' + data.user.id);
-            localStorage.setItem('userId', data.user.id);
-           
+            localStorage.setItem(login, data.user.id);
         });
 });
+
+/*
+const listeParticipants = document.getElementById("participants");
+
+listeParticipants.addEventListener('click', () => {
+    fetch('/participants')
+        .then(responsebrute => responsebrute.json()) 
+        .then(
+            responsejson => {
+                document.getElementById('reponse').innerHTML = responsejson.cle1; 
+            });
+        
+*/

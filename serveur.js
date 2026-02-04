@@ -27,13 +27,14 @@ app.get('/login', (req, res) => {
   res.send('<h1>Bienvenue sur la page de login  </h1>');
 });
 
-
-
 app.get('/info', (req, res) => {
-  res.json({ cle1: 'valeur1', cle2: 'valeur2' });
+  res.json({ cle1: 'toujour pas Connecter', cle2: 'Connecter' });
 });
 
 app.get('/users', (req, res) => {
+
+
+
   connection.query('SELECT * FROM User', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des utilisateurs :', err);
@@ -48,7 +49,8 @@ app.post('/connexion', (req, res) => {
   console.log(req.body);
   //on récupère le login et le password
   const { login, password } = req.body;
-  connection.query('SELECT * FROM User WHERE Login = ? AND Password = ?', [login, password], (err, results) => {
+  connection.query('SELECT * FROM User WHERE login = ? AND password = ?', 
+    [login, password], (err, results) => {
     if (err) {
       console.error('Erreur lors de la vérification des identifiants :', err);
       res.status(500).json({ message: 'Erreur serveur' });
@@ -59,8 +61,7 @@ app.post('/connexion', (req, res) => {
       return;
     }
     // Identifiants valides 
-    //renvoi les informations du user
-    res.json({ message: 'Connexion réussie !', user: results[0] });
+    res.json({ message: 'Connexion réussie !',user:results[0]  });
   });
 });
 
@@ -82,6 +83,10 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/votes', (req, res) => {
+
+  //récupérer du front idvoté et id du connecté ( qui est dans la base idElecteur)
+ 
+
   connection.query(
     'INSERT INTO Vote (idUser) VALUES (?)',
     [req.body.idValue],
@@ -97,7 +102,12 @@ app.post('/votes', (req, res) => {
   );
 });
 
-/*app.get('/participants', (req, res) => {
+app.listen(3000, () => {
+  let monIp = require("ip").address();
+  console.log(`Server running on http://${monIp}:3000`);
+});
+/*
+app.get('/participants', (req, res) => {
   connection.query('SELECT * FROM Vote', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des utilisateurs :', err);
@@ -107,8 +117,3 @@ app.post('/votes', (req, res) => {
     res.json(results);
   });
 });*/
-
-app.listen(3000, () => {
-  let monIp = require("ip").address();
-  console.log(`Server running on http://${monIp}:3000`);
-});
