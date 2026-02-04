@@ -85,11 +85,9 @@ app.post('/register', (req, res) => {
 app.post('/votes', (req, res) => {
 
   //récupérer du front idvoté et id du connecté ( qui est dans la base idElecteur)
- 
-
   connection.query(
-    'INSERT INTO Vote (idUser) VALUES (?)',
-    [req.body.idValue],
+    'INSERT INTO Vote (idUser, idElecteur) VALUES (?, ?)',
+    [req.body.idValue,req.body.idElecteur],
     (err, results) => {
       if (err) {
         console.error('Erreur lors de l\'insertion dans la base de données :', err);
